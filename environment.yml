@@ -1,0 +1,13 @@
+name: kickstarter
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - flask=*
+  - jinja2=*
+  - numpy=*
+  - pandas=*
+  - scikit-learn=*
+
