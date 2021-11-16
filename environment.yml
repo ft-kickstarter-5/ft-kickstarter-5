@@ -12,3 +12,4 @@ dependencies:
   - scikit-learn=*
   - category_encoders=*
   - matplotlib=*
+  - gunicorn=*
