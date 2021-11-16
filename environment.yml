@@ -10,4 +10,5 @@ dependencies:
   - numpy=*
   - pandas=*
   - scikit-learn=*
-
+  - category_encoders=*
+  - matplotlib=*
