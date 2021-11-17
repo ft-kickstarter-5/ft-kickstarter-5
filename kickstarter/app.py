@@ -39,7 +39,10 @@ def create_app():
             print(model_inputs)
             prediction = predict_success(model_inputs)
             return render_template(
-                "result.html", title="Prediction", prediction=prediction
+                "result.html",
+                title="Prediction",
+                prediction=prediction,
+                inputs=model_inputs,
             )
         else:
             return render_template("form.html", title="Form")
