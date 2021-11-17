@@ -10,4 +10,7 @@ dependencies:
   - numpy=*
   - pandas=*
   - scikit-learn=*
-
+  - matplotlib=*
+  - keras=*
+  - seaborn=*
+  - prettytable=*
