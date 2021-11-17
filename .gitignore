@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# DS32
+**/.DS_Store
+/kickstarter/.DS_Store
+/kickstarter/data/
+kickstarter/models/
