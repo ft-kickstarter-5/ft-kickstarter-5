@@ -4,8 +4,7 @@ from .predict import predict_success
 
 
 def create_app():
-
-    # initializes our app
+    # initializes our flask app
     app = Flask(__name__)
 
     # Listen to a "route"
@@ -13,27 +12,28 @@ def create_app():
     @app.route("/")
     @app.route("/index")
     def root():
-        # query the db for all users
-        campaigns = df
-        # what I want to happen when somebody goes to the home page
-        return render_template("index.html", title="Home", campaigns=campaigns)
+        """returns template for home page of flask app"""
+        return render_template("index.html", title="Home")
 
     @app.route("/landing")
     def landing():
-        # query the db for all users
-        # what I want to happen when somebody goes to the home page
+        """placeholder for landing page in forty template"""
         return render_template("landing.html", title="Landing")
+
+    @app.route("/elements")
+    def elements():
+        """placeholder for elements page in forty template"""
+        return render_template("elements.html", title="Elements")
 
     @app.route("/generic")
     def generic():
-        # query the db for all users
-        # what I want to happen when somebody goes to the home page
+        """placeholder for generic page in forty template"""
         return render_template("generic.html", title="Generic")
 
     @app.route("/predict", methods=["POST", "GET"])
     def predict():
-        # query the db for all users
-        # what I want to happen when somebody goes to the home page
+        """Returns a form page on initial get request.
+        After post, returns results html with predictions from model"""
         if request.method == "POST":
             model_inputs = request.form
             prediction = predict_success(model_inputs)
