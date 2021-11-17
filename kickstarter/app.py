@@ -36,7 +36,6 @@ def create_app():
         # what I want to happen when somebody goes to the home page
         if request.method == "POST":
             model_inputs = request.form
-            print(model_inputs)
             prediction = predict_success(model_inputs)
             return render_template(
                 "result.html",

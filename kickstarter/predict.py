@@ -9,10 +9,18 @@ final_model = pickle.load(
 
 
 def predict_success(feature_inputs):
+    print(feature_inputs["category"])
     return final_model.predict(
         [
             pd.Series(
-                [1, 4, 3, 6, 7, "Web"],
+                [
+                    feature_inputs["goal"],
+                    feature_inputs["pledged"],
+                    feature_inputs["launch_to_deadline_days"],
+                    feature_inputs["launch_to_state_change_days"],
+                    feature_inputs["backers_count"],
+                    feature_inputs["category"],
+                ],
                 index=[
                     "goal",
                     "pledged",
