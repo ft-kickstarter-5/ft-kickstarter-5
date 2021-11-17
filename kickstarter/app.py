@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from .kickstarter import df
+from .predict import predict_success
 
 
 def create_app():
@@ -29,10 +30,18 @@ def create_app():
         # what I want to happen when somebody goes to the home page
         return render_template("generic.html", title="Generic")
 
-    @app.route("/elements")
-    def elements():
+    @app.route("/predict", methods=["POST", "GET"])
+    def predict():
         # query the db for all users
         # what I want to happen when somebody goes to the home page
-        return render_template("elements.html", title="Home")
+        if request.method == "POST":
+            model_inputs = request.form
+            print(model_inputs)
+            prediction = predict_success(model_inputs)
+            return render_template(
+                "result.html", title="Prediction", prediction=prediction
+            )
+        else:
+            return render_template("form.html", title="Form")
 
     return app

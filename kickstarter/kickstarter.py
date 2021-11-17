@@ -7,6 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.impute import SimpleImputer
 import matplotlib.pyplot as plt
+import pickle
 
 
 def wrangle(data_path):
@@ -17,7 +18,7 @@ def wrangle(data_path):
     return df
 
 
-df = wrangle("./data/kickstarter_data_full.csv")
+df = wrangle("./kickstarter/data/kickstarter_data_full.csv")
 
 # target is SuccessfulBool
 df["SuccessfulBool"].value_counts()
@@ -59,3 +60,10 @@ pd.DataFrame(
     index=features,
     columns=["coefficient"],
 ).abs().sort_values(by="coefficient", ascending=False)
+
+final_model = logr_model
+time = pd.to_datetime("now").strftime("%Y-%m-%d-%H:%M:%S")
+filename = time + "-" + final_model.steps[len(final_model.steps) - 1][0]
+
+
+pickle.dump(final_model, open("./kickstarter/models/" + filename, "wb"))
