@@ -9,7 +9,7 @@ cycler=0.11.0=pyhd8ed1ab_0
 dataclasses=0.8=pyhc8e2a94_3
 flask=2.0.2=pyhd8ed1ab_0
 freetype=2.10.4=h4cff582_1
-gunicorn=20.1.0=py37hf985489_1
+gunicorn=20.1.0=pypi_0
 importlib-metadata=4.8.2=py37hf985489_0
 itsdangerous=2.0.1=pyhd8ed1ab_0
 jbig=2.1=h0d85af4_2003
