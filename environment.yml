@@ -13,6 +13,4 @@ dependencies:
   - category_encoders=*
   - matplotlib=*
   - pip=*
-  - pip:
-    - gunicorn
 
