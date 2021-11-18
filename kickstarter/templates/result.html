@@ -31,18 +31,24 @@
         </ul>
       </nav>
 
+      <div id="main" class="alt">
+        <section id="one">
+          <div class="inner">
 
-      <table border = 1>
-      {% for key, value in inputs.items() %}
+            <table border = 1>
+              {% for key, value in inputs.items() %}
 
-        <tr>
-          <th> {{ key }} </th>
-          <td> {{ value }} </td>
-        </tr>
+              <tr>
+                <th> {{ key }} </th>
+                <td> {{ value }} </td>
+              </tr>
 
-      {% endfor %}
-      </table>
-      <p>Kickstarter will (0 is fail, 1 is succeed): {{prediction}}</p>
+              {% endfor %}
+            </table>
+            <p>Kickstarter will (0 is fail, 1 is succeed): {{prediction}}</p>
+          </div>
+        </section>
+      </div>
     </div>
     <!-- Scripts -->
     <script src="static/js/jquery.min.js"></script>
