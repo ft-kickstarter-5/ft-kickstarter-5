@@ -6,7 +6,7 @@ pd.set_option('display.max_columns', 67)
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set(font_scale = 1)
-from matplotlib import inline
+#from matplotlib import inline
 plt.style.use('ggplot')
 
 np.random.seed(7)
@@ -30,11 +30,13 @@ from keras.preprocessing.sequence import pad_sequences
 
 
 kickstarter = pd.read_csv('../../kickstarter_data_full.csv', index_col=0)
+print(kickstarter.columns)
 
 cols_to_drop = ['friends', 
                 'is_starred',
                 'is_backing',
                 'permissions',
+                'profile',
                 'id',
                 'photo',
                 'slug',
@@ -71,7 +73,7 @@ cols_to_drop = ['friends',
                 'launched_at_hr'
                 ]
 kickstarter.drop(labels=cols_to_drop, axis=1, inplace=True)
-kickstarter.drop(labels='profile', axis=1, inplace=True)
+
 
 
 #converts type bool to 0 for false and 1 for true
@@ -133,6 +135,7 @@ correlations = features.corr()['SuccessfulBool'].dropna().sort_values()
 
 reduced_x_features['log_goal'] = features['log_goal']
 reduced_x_features['log_pledged'] = features['log_pledged']
+reduced_x_features.drop('pledged', axis=1, inplace=True)
 
 
 

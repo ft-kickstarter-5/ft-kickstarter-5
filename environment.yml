@@ -14,3 +14,4 @@ dependencies:
   - keras=*
   - seaborn=*
   - prettytable=*
+  - tensorflow=*
