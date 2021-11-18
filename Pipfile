@@ -12,6 +12,7 @@ pandas = "*"
 scikit-learn = "*"
 category-encoders = "*"
 matplotlib = "*"
+gunicorn = "*"
 
 [dev-packages]
 
