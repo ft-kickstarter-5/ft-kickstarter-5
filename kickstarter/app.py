@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
-#from .kickstarter import df
+
+# from .kickstarter import df
 from .predict import predict_success
 
 
@@ -47,6 +48,3 @@ def create_app():
             return render_template("form.html", title="Form")
 
     return app
-
-if __name__ == '__main__':
-    app.run()

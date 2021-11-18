@@ -3,9 +3,6 @@ FROM python:3.10 as base
 
 FROM base AS python-deps
 
-#Set the working directory
-WORKDIR /
-
 
 # Install python dependencies in /.venv
 COPY Pipfile .
@@ -20,13 +17,7 @@ RUN apt-get update && apt-get install -y python3 python3-pip
 RUN pip3 install pipenv
 RUN apt-get update && apt-get install -y --no-install-recommends gcc
 RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
-
-
-# Install gunicorn requirements.txt
-COPY requirements.txt .
-
-# install requirements.txt
-RUN pip3 install -r requirements.txt
+RUN PIPENV_VENV_IN_PROJECT=1 pipenv install gunicorn
 
 FROM base AS runtime
 
@@ -46,4 +37,6 @@ COPY . .
 EXPOSE 5000
 
 #Run the command
-CMD gunicorn kickstarter:app
+#CMD gunicorn --bind 0.0.0.0:5000 kickstarter:APP
+CMD ["gunicorn"  , "--bind", "0.0.0.0:5000", "kickstarter:APP"]
+
