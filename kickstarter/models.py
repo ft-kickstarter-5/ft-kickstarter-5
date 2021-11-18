@@ -43,17 +43,8 @@ df = pd.read_csv("./data/kickstarter_data_full.csv")
 df = wrangle(df)
 
 col = df.columns
-test_col = df[
-    [
-        "goal",
-        "pledged",
-        "launch_to_deadline_days",
-        "launch_to_state_change_days",
-        "backers_count",
-        "category",
-        "SuccessfulBool",
-    ]
-]
+test_col = df[['goal','category','staff_pick',
+                'state_changed_at_month','SuccessfulBool']]
 pd.DataFrame(test_col)
 
 target = "SuccessfulBool"
@@ -64,38 +55,21 @@ X = test_col.drop(columns=target)
 
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=7)
 
-# Decision Tree
-model_dt = make_pipeline(
-    OrdinalEncoder(),
-    SimpleImputer(strategy="mean"),
-    DecisionTreeClassifier(random_state=7),
-)
-
-model_dt.fit(X_train, y_train)
-
-# Random Forest
+#Random Forest
 model_rf = make_pipeline(
-    OrdinalEncoder(), SimpleImputer(), RandomForestClassifier(random_state=7, n_jobs=-1)
+    OrdinalEncoder(), SimpleImputer(),
+    RandomForestClassifier(random_state=7,n_estimators=15,
+                           max_depth=8,min_samples_leaf=2)
 )
 
 model_rf.fit(X_train, y_train)
 
 y_train.value_counts(normalize=True).max()
 
-print("Training Accuracy:", model_dt.score(X_train, y_train))
-print("Validation Accuracy:", model_dt.score(X_val, y_val))
-
 print("Training Accuracy:", model_rf.score(X_train, y_train))
 print(" Validation Accuracy:", model_rf.score(X_val, y_val))
 
 model_rf.score(X_val, y_val)
-
-result = permutation_importance(model_rf, X_val, y_val, random_state=7)
-forest_importances = pd.Series(result.importances_mean)
-graph1 = forest_importances.plot.bar(y=forest_importances, x=col)
-graph1.set_title("Feature importances using permutation on full model")
-graph1.set_ylabel("Importance of features")
-plt.show()
 
 final_model = model_rf
 time = pd.to_datetime("now").strftime("%Y-%m-%d-%H:%M:%S")
