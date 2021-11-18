@@ -34,7 +34,9 @@
       <div id="main" class="alt">
         <section id="one">
           <div class="inner">
-
+            <div class="content">
+              <p>Here are your Kickstarter campaign attributes</p>
+            </div>
             <table border = 1>
               {% for key, value in inputs.items() %}
 
@@ -45,7 +47,13 @@
 
               {% endfor %}
             </table>
-            <p>Kickstarter will (0 is fail, 1 is succeed): {{prediction}}</p>
+            <p>{% if prediction[0] == 1 %}
+              Congrats, your Kickstarter campaign is likely to succeed.
+              {% else %}
+              Unfortunately, your Kickstarter campaign will likely fail. 
+              {% endif %}</p>
+            <a href="predict" class="button primary">Try again</a>
+            <a href="landing" class="button">Schedule Advisement</a>
           </div>
         </section>
       </div>
