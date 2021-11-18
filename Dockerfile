@@ -3,7 +3,6 @@ FROM python:3.10 as base
 
 FROM base AS python-deps
 
-
 # Install python dependencies in /.venv
 COPY Pipfile .
 COPY Pipfile.lock .
@@ -11,7 +10,6 @@ COPY Pipfile.lock .
 #Install the dependencies
 RUN apt-get -y update
 RUN apt-get update && apt-get install -y python3 python3-pip
-
 
 # Install pipenv and compilation dependencies
 RUN pip3 install pipenv
@@ -33,10 +31,9 @@ USER appuser
 # Install application into container
 COPY . .
 
-#Expose the required port
+# Expose the required port
 EXPOSE 5000
 
-#Run the command
-#CMD gunicorn --bind 0.0.0.0:5000 kickstarter:APP
+# Run the command, bind to 5000
 CMD ["gunicorn"  , "--bind", "0.0.0.0:5000", "kickstarter:APP"]
 

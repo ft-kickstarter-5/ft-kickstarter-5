@@ -98,8 +98,5 @@ graph1.set_ylabel("Importance of features")
 plt.show()
 
 final_model = model_rf
-time = pd.to_datetime("now").strftime("%Y-%m-%d-%H:%M:%S")
-filename = time + "-" + final_model.steps[len(final_model.steps) - 1][0]
 
-
-pickle.dump(final_model, open("./models/" + filename, "wb"))
+pickle.dump(final_model, open("./kickstarter/" + "final-model", "wb"))

@@ -3,9 +3,7 @@ import numpy as np
 import pickle
 import pandas as pd
 
-final_model = pickle.load(
-    open("./kickstarter/models/2021-11-17-02:15:14-randomforestclassifier", "rb")
-)
+final_model = pickle.load(open("./kickstarter/final-model", "rb"))
 
 
 def predict_success(feature_inputs):
