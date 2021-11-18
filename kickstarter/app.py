@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from .kickstarter import df
+#from .kickstarter import df
 from .predict import predict_success
 
 
