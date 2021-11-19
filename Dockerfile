@@ -34,6 +34,9 @@ COPY . .
 # Expose the required port
 EXPOSE 5000
 
-# Run the command, bind to 5000
-CMD gunicorn kickstarter:APP
+USER root
+
+# Run the command, if local, bind to port 5000, the exposed port
+# CMD python kickstarter/models.py && gunicorn --bind 0.0.0.0:5000 kickstarter:APP
+CMD python kickstarter/models.py && gunicorn kickstarter:APP
 
