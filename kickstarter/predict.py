@@ -13,8 +13,8 @@ def predict_success(feature_inputs):
                 [
                     feature_inputs["goal"],
                     feature_inputs["category"],
-                    feature_inputs["staff_pick"],
-                    bool(int(feature_inputs["state_changed_at_month"])),
+                    bool(int(feature_inputs["staff_pick"])),
+                    feature_inputs["state_changed_at_month"],
                 ],
                 index=[
                     "goal",
