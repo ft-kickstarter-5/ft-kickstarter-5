@@ -1,0 +1,1 @@
+web: gunicorn kickstarter:APP 0.0.0.0:$PORT

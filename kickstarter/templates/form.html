@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="static/css/main.css" />
     <noscript><link rel="stylesheet" href="static/css/noscript.css" /></noscript>
-    <title>Kickstarter Success - {{title}}</title>
+    <title>Get Funded Inc. - {{title}}</title>
   </head>
   <body>
     <!-- Wrapper -->
@@ -13,7 +13,7 @@
 
       <!-- Header -->
       <header id="header" class="alt">
-        <a href="/" class="logo"><strong>Kickstarter</strong> <span>by DS32</span></a>
+	<a href="/" class="logo"><strong>Get Funded</strong> <span>Inc.</span></a>
         <nav>
 	  <a href="#menu">Menu</a>
         </nav>
@@ -42,20 +42,19 @@
 	          <input type="number" name="goal" id="goal" value="100000" placeholder=100000 />
 	        </div>
 	        <div class="col-6 col-12-xsmall">
-                  <label for="pledged">Pledge Amount</label>
-	          <input type="number" name="pledged" id="pledged" value="50000" placeholder="50000" />
+                  <label for="staff_pick">Will your project be a staff pick?</label>
+		  <div class="col-4 col-12-small">
+		    <input type="radio" id="staff_pick_yes" name="staff_pick" value=1>
+		    <label for="staff_pick_yes">Yes</label>
+		  </div>
+		  <div class="col-4 col-12-small">
+		    <input type="radio" id="staff_pick_no" name="staff_pick" value=0 checked>
+		    <label for="staff_pick_no">No</label>
+		  </div>
 	        </div>
 	        <div class="col-6 col-12-xsmall">
-                  <label for="launch_to_deadline_days">Length of Campaign in Days</label>
-	          <input type="number" name="launch_to_deadline_days" id="launch_to_deadline_days" value=30 placeholder=30 />
-	        </div>
-	        <div class="col-6 col-12-xsmall">
-                  <label for="launch_to_state_change_days">Length of Change in Days</label>
-	          <input type="number" name="launch_to_state_change_days" id="launch_to_state_change_days" value=10 placeholder=10 />
-	        </div>
-	        <div class="col-6 col-12-xsmall">
-                  <label for="backers_count">How many Backers currently?</label>
-	          <input type="number" name="backers_count" id="backers_count" value=100 placeholder=100 />
+                  <label for="state_changed_at_month">How many months will this project be active?</label>
+	          <input type="number" name="state_changed_at_month" id="state_changed_at_month" value=5 placeholder=5 />
 	        </div>
 
 	        <!-- Break -->

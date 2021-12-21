@@ -9,6 +9,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import pickle
+import os
 
 
 def wrangle(df):
@@ -39,67 +40,62 @@ def wrangle(df):
     return df
 
 
-df = pd.read_csv("./data/kickstarter_data_full.csv")
-df = wrangle(df)
+def create_model(filename):
+    df = pd.read_csv(filename)
+    df = wrangle(df)
 
-col = df.columns
-test_col = df[
-    [
-        "goal",
-        "pledged",
-        "launch_to_deadline_days",
-        "launch_to_state_change_days",
-        "backers_count",
-        "category",
-        "SuccessfulBool",
+    col = df.columns
+    test_col = df[
+        ["goal", "category", "staff_pick", "state_changed_at_month", "SuccessfulBool"]
     ]
-]
-pd.DataFrame(test_col)
 
-target = "SuccessfulBool"
-# y= df[target]
-# X = df.drop(columns=target)
-y = test_col[target]
-X = test_col.drop(columns=target)
+    pd.DataFrame(test_col)
 
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=7)
+    target = "SuccessfulBool"
+    # y= df[target]
+    # X = df.drop(columns=target)
+    y = test_col[target]
+    X = test_col.drop(columns=target)
 
-# Decision Tree
-model_dt = make_pipeline(
-    OrdinalEncoder(),
-    SimpleImputer(strategy="mean"),
-    DecisionTreeClassifier(random_state=7),
-)
+    X_train, X_val, y_train, y_val = train_test_split(
+        X, y, test_size=0.2, random_state=7
+    )
 
-model_dt.fit(X_train, y_train)
+    # Decision Tree
+    model_dt = make_pipeline(
+        OrdinalEncoder(),
+        SimpleImputer(strategy="mean"),
+        DecisionTreeClassifier(random_state=7),
+    )
 
-# Random Forest
-model_rf = make_pipeline(
-    OrdinalEncoder(), SimpleImputer(), RandomForestClassifier(random_state=7, n_jobs=-1)
-)
+    model_dt.fit(X_train, y_train)
 
-model_rf.fit(X_train, y_train)
+    # Random Forest
+    model_rf = make_pipeline(
+        OrdinalEncoder(),
+        SimpleImputer(),
+        RandomForestClassifier(
+            random_state=7, n_estimators=15, max_depth=8, min_samples_leaf=2
+        ),
+    )
 
-y_train.value_counts(normalize=True).max()
+    model_rf.fit(X_train, y_train)
 
-print("Training Accuracy:", model_dt.score(X_train, y_train))
-print("Validation Accuracy:", model_dt.score(X_val, y_val))
+    y_train.value_counts(normalize=True).max()
 
-print("Training Accuracy:", model_rf.score(X_train, y_train))
-print(" Validation Accuracy:", model_rf.score(X_val, y_val))
+    print("Training Accuracy:", model_rf.score(X_train, y_train))
+    print("Validation Accuracy:", model_rf.score(X_val, y_val))
 
-model_rf.score(X_val, y_val)
+    model_rf.score(X_val, y_val)
 
-result = permutation_importance(model_rf, X_val, y_val, random_state=7)
-forest_importances = pd.Series(result.importances_mean)
-graph1 = forest_importances.plot.bar(y=forest_importances, x=col)
-graph1.set_title("Feature importances using permutation on full model")
-graph1.set_ylabel("Importance of features")
-plt.show()
-
-final_model = model_rf
-time = pd.to_datetime("now").strftime("%Y-%m-%d-%H:%M:%S")
-filename = time + "-" + final_model.steps[len(final_model.steps) - 1][0]
+    return model_rf
 
 
-pickle.dump(final_model, open("./models/" + filename, "wb"))
+if __name__ == "__main__":
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(dirname, "data/kickstarter_data_full.csv")
+    final_model = create_model(filename)
+    pickle.dump(final_model, open(os.path.join(dirname, "final-model"), "wb"))
+else:
+    final_model = create_model("./data/kickstarter_data_full.csv")
+    pickle.dump(final_model, open(os.path.join("./final-model"), "wb"))
